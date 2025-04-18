@@ -1,0 +1,40 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: cbp-ci-workflow
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    steps:
+      - name: Compile Code
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
+        run: echo "Compiling..."
+
+      - name: Produce Binary
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
+        run: sleep 5
+
+      - name: Push binary
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
+        run: echo "Pushing Binary to ECR..."
+
+      - name: register-build-artifacts
+        uses: https://github.com/cloudbees-io/register-build-artifact@v1
+        with:
+          name: App3-APIs
+          version: 8.0.0
+          url: docker.io/App3/App3-APIs:8.0.0
+
+  deploy:
+    needs: [build]
+    steps:
+      - name: Inform system that an artifact version was deployed
+        uses: cloudbees-io/register-deployed-artifact@v1
+        with:
+          name: App3-APIs
+          version: 8.0.0
+          url: docker.io/App3/App3-APIs:8.0.0
+          target-environment: "qa"
