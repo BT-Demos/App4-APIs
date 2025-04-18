@@ -32,6 +32,7 @@ jobs:
     needs: [build]
     steps:
       - name: Inform system that an artifact version was deployed
+        kind: deploy
         uses: cloudbees-io/register-deployed-artifact@v1
         with:
           name: App4-APIs
