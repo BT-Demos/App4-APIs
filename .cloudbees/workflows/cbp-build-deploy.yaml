@@ -12,6 +12,7 @@ jobs:
         run: echo "Compiling..."
 
       - name: Produce Binary
+        kind: build
         uses: docker://golang:1.20.3-alpine3.17
         shell: sh
         run: sleep 5
