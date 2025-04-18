@@ -31,10 +31,10 @@ jobs:
 
   deploy:
     needs: [build]
+    environment: qa
     steps:
       - name: Inform system that an artifact version was deployed
         kind: deploy
-        environment: qa
         uses: cloudbees-io/register-deployed-artifact@v1
         with:
           name: App4-APIs
