@@ -25,8 +25,8 @@ jobs:
         uses: https://github.com/cloudbees-io/register-build-artifact@v1
         with:
           name: App4-APIs
-          version: 1.0.0
-          url: docker.io/App4/App4-APIs:1.0.0
+          version: 2.0.0
+          url: docker.io/App4/App4-APIs:2.0.0
 
   deploy:
     needs: [build]
@@ -36,6 +36,6 @@ jobs:
         uses: cloudbees-io/register-deployed-artifact@v1
         with:
           name: App4-APIs
-          version: 1.0.0
-          url: docker.io/App4/App4-APIs:1.0.0
+          version: 2.0.0
+          url: docker.io/App4/App4-APIs:2.0.0
           target-environment: "qa"
