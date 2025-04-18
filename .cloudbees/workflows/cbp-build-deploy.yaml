@@ -1,6 +1,6 @@
 apiVersion: automation.cloudbees.io/v1alpha1
 kind: workflow
-name: cbp-ci-workflow
+name: cbp-ci-cd-workflow
 on:
   workflow_dispatch:
 jobs:
@@ -24,9 +24,9 @@ jobs:
       - name: register-build-artifacts
         uses: https://github.com/cloudbees-io/register-build-artifact@v1
         with:
-          name: App3-APIs
-          version: 8.0.0
-          url: docker.io/App3/App3-APIs:8.0.0
+          name: App4-APIs
+          version: 1.0.0
+          url: docker.io/App4/App4-APIs:1.0.0
 
   deploy:
     needs: [build]
@@ -34,7 +34,7 @@ jobs:
       - name: Inform system that an artifact version was deployed
         uses: cloudbees-io/register-deployed-artifact@v1
         with:
-          name: App3-APIs
-          version: 8.0.0
-          url: docker.io/App3/App3-APIs:8.0.0
+          name: App4-APIs
+          version: 1.0.0
+          url: docker.io/App4/App4-APIs:1.0.0
           target-environment: "qa"
